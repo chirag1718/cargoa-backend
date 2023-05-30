@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 import bodyParser from "body-parser";
+import cors from "cors";
 // Connection to DB
 mongoose.set("strictQuery", true);
 // When using strictQuery: true, Mongoose will only save fields that are specified in your schema
@@ -23,6 +24,7 @@ mongoose
   .catch((e) => console.log(e));
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
