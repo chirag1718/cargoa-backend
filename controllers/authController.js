@@ -67,7 +67,7 @@ export const login = async (req, res) => {
       token,
       user,
     });
-    res.status(200).send(user);
+    // res.status(200).send(user);
   } catch (err) {
     console.log(err);
   }
