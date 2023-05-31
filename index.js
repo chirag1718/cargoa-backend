@@ -29,9 +29,11 @@ app.use(bodyParser.json());
 
 // Routes
 import authRoute from "./routes/auth.js";
+import messageRoute from "./routes/messages.js";
 
 // Routes Middleware
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/message", messageRoute);
 
 const port = process.env.PORT || 88001;
 app.listen(port, () => {
