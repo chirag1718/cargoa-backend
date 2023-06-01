@@ -43,8 +43,7 @@ function generateOrderId() {
 
 export const getManufacturerMessages = async (req, res) => {
   try {
-    const { userid } = req.params.id;
-    const user = await User.findById(userid);
+    const userid = req.params.id;
     const message = await ManufacturerMessage.find({ userId: userid });
     res.status(201).json(message);
   } catch (err) {
@@ -55,7 +54,6 @@ export const getManufacturerMessages = async (req, res) => {
 // Transporter controller
 export const transporter = async (req, res) => {
   const messageId = req.params.id;
-  const message = await ManufacturerMessage.findById(messageId);
   try {
     const updatedMessage = await ManufacturerMessage.updateOne(
       { _id: messageId },
