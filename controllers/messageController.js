@@ -1,4 +1,4 @@
-import Message from "../model/Message.js";
+import ManufacturerMessage from "../model/ManufacturerMessage.js";
 import User from "../model/User.js";
 
 // Manufacturer controller
@@ -7,15 +7,17 @@ export const manufacturer = async (req, res) => {
   const user = await User.findById(userId);
   const orderId = generateOrderId();
   const userAddress = user.address;
+  const userID = user.id;
   try {
     // New message
-    const newMessage = new Message({
+    const newMessage = new ManufacturerMessage({
       orderId: orderId,
       to: req.body.to,
       from: req.body.from,
       address: userAddress,
       quantity: req.body.quantity,
       transporter: req.body.transporter,
+      userId: userID,
     });
     const savedMessage = await newMessage.save();
     console.log(savedMessage);
@@ -39,14 +41,25 @@ function generateOrderId() {
   return orderId;
 }
 
-// Transporter controller
+export const getManufacturerMessages = async (req, res) => {
+  try {
+    const { userid } = req.params.id;
+    const user = await User.findById(userid);
+    const message = await ManufacturerMessage.find({ userId: userid });
+    res.status(201).json(message);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
+
+// Transporter controller
 export const transporter = async (req, res) => {
   const messageId = req.params.id;
-  const message = await Message.findById(messageId);
+  const message = await ManufacturerMessage.findById(messageId);
   const orderId = message.orderId;
   try {
-    const newMessage = new Message({
+    const newMessage = new TransporterMessage({
       orderId: orderId,
       price: req.body.price,
     });

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const messageSchema = mongoose.Schema({
+const ManufacturerMessage = mongoose.Schema({
   orderId: {
     type: String,
     required: true,
@@ -25,10 +25,14 @@ const messageSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
   // price: {
   //   type: String,
   //   required: true,
   // },
 });
 
-export default mongoose.model("Message", messageSchema);
+export default mongoose.model("Message", ManufacturerMessage);
