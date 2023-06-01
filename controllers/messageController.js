@@ -52,21 +52,22 @@ export const getManufacturerMessages = async (req, res) => {
   }
 };
 
-
 // Transporter controller
 export const transporter = async (req, res) => {
   const messageId = req.params.id;
   const message = await ManufacturerMessage.findById(messageId);
-  const orderId = message.orderId;
   try {
-    const newMessage = new TransporterMessage({
-      orderId: orderId,
-      price: req.body.price,
-    });
-
-    const savedMessage = await newMessage.save();
-    res.status(201).json(savedMessage);
+    const updatedMessage = await ManufacturerMessage.updateOne(
+      { _id: messageId },
+      {
+        $set: {
+          price: req.body.price,
+        },
+      }
+    );
+    res.status(201).json(updatedMessage);
   } catch (err) {
     res.status(500).send(err);
+    console.log(err);
   }
 };

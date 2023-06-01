@@ -29,10 +29,10 @@ const ManufacturerMessage = mongoose.Schema({
     type: String,
     required: true,
   },
-  // price: {
-  //   type: String,
-  //   required: true,
-  // },
+  price: {
+    type: Number,
+    required: true,
+  },
 });
 
-export default mongoose.model("Message", ManufacturerMessage);
+export default mongoose.model("manufacturerMessage", ManufacturerMessage);
