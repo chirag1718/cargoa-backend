@@ -2,6 +2,7 @@ import ManufacturerMessage from "../model/ManufacturerMessage.js";
 import User from "../model/User.js";
 
 // Manufacturer controller
+// Post a message
 export const manufacturer = async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
@@ -11,7 +12,7 @@ export const manufacturer = async (req, res) => {
   try {
     // New message
     const newMessage = new ManufacturerMessage({
-      orderId: orderId,
+      orderId: req.body.orderId,
       to: req.body.to,
       from: req.body.from,
       address: userAddress,
@@ -27,20 +28,7 @@ export const manufacturer = async (req, res) => {
   }
 };
 
-function generateOrderId() {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  const length = 20; // Length of alphanumeric code
-  let orderId = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    orderId += characters[randomIndex];
-  }
-
-  return orderId;
-}
-
+// Get all messages
 export const getManufacturerMessages = async (req, res) => {
   try {
     const userid = req.params.id;
@@ -52,6 +40,7 @@ export const getManufacturerMessages = async (req, res) => {
 };
 
 // Transporter controller
+// post a message
 export const transporter = async (req, res) => {
   const messageId = req.params.id;
   try {
@@ -69,3 +58,5 @@ export const transporter = async (req, res) => {
     console.log(err);
   }
 };
+
+// TODO - Get all messages for transporter
