@@ -21,11 +21,11 @@ const ManufacturerMessage = mongoose.Schema({
     type: String,
     required: true,
   },
-  transporter: {
+  transporterId: {
     type: String,
     required: true,
   },
-  userId: {
+  manufacturerId: {
     type: String,
     required: true,
   },
