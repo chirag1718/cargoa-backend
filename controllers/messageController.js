@@ -6,7 +6,6 @@ import User from "../model/User.js";
 export const manufacturer = async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
-  const orderId = generateOrderId();
   const userAddress = user.address;
   const userID = user.id;
   try {
@@ -60,3 +59,13 @@ export const transporter = async (req, res) => {
 };
 
 // TODO - Get all messages for transporter
+export const getTransporterMessages = async (req, res) => {
+  try {
+    const users = await User.find({ role: "manufacturer" });
+    const userId = users.map((user) => user._id);
+    console.log(userId);
+    res.status.json(userId);
+  } catch (err) {
+    console.log(err);
+  }
+};
