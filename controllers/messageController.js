@@ -4,20 +4,19 @@ import User from "../model/User.js";
 // Manufacturer controller
 // Post a message
 export const manufacturer = async (req, res) => {
-  const userId = req.params.id;
-  const user = await User.findById(userId);
-  const userAddress = user.address;
-  const userID = user.id;
+  const manufacturerId = req.params.id;
+  const manufacturer = await User.findById(manufacturerId);
+  const manufacturerAddress = manufacturer.address;
   try {
     // New message
     const newMessage = new ManufacturerMessage({
       orderId: req.body.orderId,
       to: req.body.to,
       from: req.body.from,
-      address: userAddress,
+      address: manufacturerAddress,
       quantity: req.body.quantity,
-      transporter: req.body.transporter,
-      userId: userID,
+      transporterId: req.body.transporterId,
+      manufacturerId: manufacturerId,
     });
     const savedMessage = await newMessage.save();
     console.log(savedMessage);
@@ -27,11 +26,23 @@ export const manufacturer = async (req, res) => {
   }
 };
 
-// Get all messages
 export const getManufacturerMessages = async (req, res) => {
   try {
-    const userid = req.params.id;
-    const message = await ManufacturerMessage.find({ userId: userid });
+    // 👇🏻manufacturer id is needed
+    const manufacturerId = req.params.id;
+    const message = await ManufacturerMessage.find({
+      manufacturerId: manufacturerId,
+    });
+    res.status(201).json(message);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+// Get all messages
+export const getAllManufacturerMessages = async (req, res) => {
+  try {
+    const message = await ManufacturerMessage.find({});
+    console.log(message);
     res.status(201).json(message);
   } catch (err) {
     res.status(500).send(err);
@@ -61,10 +72,11 @@ export const transporter = async (req, res) => {
 // TODO - Get all messages for transporter
 export const getTransporterMessages = async (req, res) => {
   try {
-    const users = await User.find({ role: "manufacturer" });
-    const userId = users.map((user) => user._id);
-    console.log(userId);
-    res.status.json(userId);
+    const transporterId = req.param.id;
+    const transporterMessages = await ManufacturerMessage.find({
+      transporterId: transporterId,
+    });
+    res.json(transporterMessages);
   } catch (err) {
     console.log(err);
   }
