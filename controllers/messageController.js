@@ -66,7 +66,7 @@ export const transporter = async (req, res) => {
   }
 };
 
-// TODO - Get all messages for transporter
+//  get all transporter messages
 export const getTransporterMessages = async (req, res) => {
   try {
     const transporterId = req.params.id;
