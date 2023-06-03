@@ -72,11 +72,11 @@ export const transporter = async (req, res) => {
 // TODO - Get all messages for transporter
 export const getTransporterMessages = async (req, res) => {
   try {
-    const transporterId = req.param.id;
+    const transporterId = req.params.id;
     const transporterMessages = await ManufacturerMessage.find({
       transporterId: transporterId,
     });
-    res.json(transporterMessages);
+    res.status(200).json(transporterMessages);
   } catch (err) {
     console.log(err);
   }

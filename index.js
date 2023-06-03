@@ -17,6 +17,7 @@ mongoose
     db,
     {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     }
     // () => console.log("Connected to DB")
   )
