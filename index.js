@@ -33,6 +33,9 @@ import authRoute from "./routes/auth.js";
 import messageRoute from "./routes/messages.js";
 
 // Routes Middleware
+app.get("/health", (req, res) => {
+  res.send("server is healthy")
+})
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/message", messageRoute);
 
