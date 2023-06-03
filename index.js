@@ -21,7 +21,13 @@ mongoose
     }
     // () => console.log("Connected to DB")
   )
-  .then(() => console.log("Connected to DB"))
+  .then(() => {
+    const port = process.env.PORT || 88001;
+    app.listen(port, () => {
+      console.log("Server is up and running");
+    });
+    console.log("connected to db!")
+  })
   .catch((e) => console.log(e));
 
 // Middleware
@@ -34,12 +40,7 @@ import messageRoute from "./routes/messages.js";
 
 // Routes Middleware
 app.get("/health", (req, res) => {
-  res.send("server is healthy")
-})
+  res.send("server is healthy");
+});
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/message", messageRoute);
-
-const port = process.env.PORT || 88001;
-app.listen(port, () => {
-  console.log("Server is up and running");
-});
