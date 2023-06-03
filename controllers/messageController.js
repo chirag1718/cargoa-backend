@@ -19,7 +19,6 @@ export const manufacturer = async (req, res) => {
       manufacturerId: manufacturerId,
     });
     const savedMessage = await newMessage.save();
-    console.log(savedMessage);
     res.status(201).json(savedMessage);
   } catch (err) {
     res.status(500).send(err);
@@ -42,7 +41,6 @@ export const getManufacturerMessages = async (req, res) => {
 export const getAllManufacturerMessages = async (req, res) => {
   try {
     const message = await ManufacturerMessage.find({});
-    console.log(message);
     res.status(201).json(message);
   } catch (err) {
     res.status(500).send(err);
@@ -65,7 +63,6 @@ export const transporter = async (req, res) => {
     res.status(201).json(updatedMessage);
   } catch (err) {
     res.status(500).send(err);
-    console.log(err);
   }
 };
 
@@ -78,6 +75,6 @@ export const getTransporterMessages = async (req, res) => {
     });
     res.status(200).json(transporterMessages);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err);
   }
 };

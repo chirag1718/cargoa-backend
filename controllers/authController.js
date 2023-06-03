@@ -31,10 +31,8 @@ export const register = async (req, res) => {
       role: newUser.role,
       address: newUser.address,
     });
-    console.log(savedUser);
   } catch (err) {
     res.status(400).send(err);
-    console.log(err, "Error: Register Controller");
   }
 };
 
@@ -45,7 +43,6 @@ export const login = async (req, res) => {
 
     // Check if user email exists
     const user = await User.findOne({ email: req.body.email });
-    console.log(user);
     if (!user) return res.status(400).send("Email does not exist!");
 
     // Check if password is valid
@@ -54,7 +51,6 @@ export const login = async (req, res) => {
       user.password
     );
     if (!isPasswordValid) return res.status(400).send("Invalid Password");
-    console.log(isPasswordValid);
     const token = jwt.sign(
       {
         id: user.id,
@@ -70,7 +66,6 @@ export const login = async (req, res) => {
     // res.status(200).send(user);
   } catch (err) {
     res.status(400).send(err);
-    console.log(err);
   }
 };
 
@@ -79,6 +74,6 @@ export const getAllUsers = async (req, res) => {
     const users = await User.find({ role: "transporter" });
     res.status(200).json(users);
   } catch (err) {
-    console.log(err);
+    res.status(500).send(err)
   }
 };
